@@ -1,18 +1,57 @@
 from tkinter import *
 from tkinter import filedialog as fd
+from tkinter import font
 import os
 
 root = Tk()
 
-class MenuOptions():
-    def __init__(self):
-        self.win2 = Tk()
-        self.win2.mainloop()
-        
-    def AppConfig(self):
-        self.win2.title("Preferências")
-        self.win2.iconbitmap("image/duteblock_icon.ico")
-        self.win2.geometry("")
+class MenuEditar():
+    def Selecao(self):
+        self.selecionado = False
+    def Recortar(self):
+        if self.txt.selection_get():
+            self.selecionado = self.txt.selection_get()
+            self.win1.clipboard_clear()
+            self.win1.clipboard_append(self.selecionado)
+            self.txt.delete("sel.first", "sel.last")
+    def Colar(self):
+        self.selecionado = self.win1.clipboard_get()
+        if self.selecionado != "":
+            posicao = self.txt.index(INSERT)
+            self.txt.insert(posicao, self.selecionado)  
+    def Copiar(self):
+        if self.txt.selection_get():
+            self.selecionado = self.txt.selection_get()
+            self.win1.clipboard_clear()
+            self.win1.clipboard_append(self.selecionado) 
+    def Bold(self):
+        if self.txt.selection_get():
+            boldFont = font.Font(self.txt, self.txt.cget("font"))
+            boldFont.configure(weight= "bold")
+            
+            self.txt.tag_configure("bold", font= boldFont)
+            tag = self.txt.tag_names("sel.first")
+            
+            if "bold" in tag:
+                self.txt.tag_remove("bold", "sel.first", "sel.last")
+            else:
+                if "italic" in tag:
+                    self.txt.tag_remove("italic", "sel.first", "sel.last")
+                self.txt.tag_add("bold", "sel.first", "sel.last")
+    def Italic(self):
+        if self.txt.selection_get():
+            italicFont = font.Font(self.txt, self.txt.cget("font"))
+            italicFont.configure(slant= "italic")
+            
+            self.txt.tag_configure("italic", font= italicFont)
+            tag = self.txt.tag_names("sel.first")
+            
+            if "italic" in tag:
+                self.txt.tag_remove("italic", "sel.first", "sel.last")
+            else:
+                if "bold" in tag:
+                    self.txt.tag_remove("bold", "sel.first", "sel.last")
+                self.txt.tag_add("italic", "sel.first", "sel.last")
 
 class MenuArquivo():
     def ConfirmarAbrir(self):
@@ -30,27 +69,27 @@ class MenuArquivo():
         pop = Tk()
         pop.title("Abrir Arquivo")
         pop.config(background= "#202020")
-        pop.geometry("300x150")
+        x = (self.screenW / 2) - (300 / 2)
+        y = (self.screenH / 2) - (100 / 2)
+        pop.geometry(f"300x100+{int(x)}+{int(y)}")
         pop.iconbitmap("image/duteblock_icon.ico")
         pop.resizable(False, False)
-        
+
         frame1 = Frame(pop, background= "#202020")
-        frame1.place(relx= 0, rely= 0, relwidth= 1, relheight= 0.65)
-        frame2 = Frame(pop, background= "#404040")
-        frame2.place(relx= 0, rely= 0.7, relwidth= 1, relheight= 0.35)
-        
-        lbText = Label(frame1, text="Abrir novo documento sem salvar o atual?", background= "#202020", foreground="White", font=("Segoe UI", 10))
-        lbText.place(relx=0, rely=0.35, relwidth= 0.94, relheight=0.7)
-        lbName = Label(frame1, text="Dute Block", background= "#202020", foreground="White", font=("Segoe UI", 15, "bold"))
-        lbName.place(relx= 0, rely=0.30, relwidth= 0.45, relheight= 0.2)
-        
-        btnSalv = Button(frame2, text="Salvar", background="#f43838", bd= 0, fg="white", command= SalvarNovo)
-        btnSalv.place(relx= 0.05, rely=0.2, relwidth= 0.25, relheight= 0.4)
-        btnDontSlv = Button(frame2, text="Não Salvar", background= "#202020", fg= "white", bd= 0, command= DontSave)
-        btnDontSlv.place(relx= 0.375, rely=0.2, relwidth= 0.25, relheight= 0.4)
-        BtnCancel = Button(frame2, text="Cancelar", background="#202020", bd= 0, fg= "white", command= Cancel)
-        BtnCancel.place(relx= 0.7, rely=0.2, relwidth= 0.25, relheight= 0.4)
-        
+        frame1.place(relx= 0, rely= 0, relwidth= 1, relheight= 1)
+
+        lbText = Label(frame1, text="Criar novo documento sem salvar o atual? ", background= "#202020", foreground="#434343", font=("Montsserrat", 10))
+        lbText.place(relx=0, rely=0.1, relwidth= 1, relheight=0.7)
+        lbName = Label(frame1, text="Dute Block", background= "#202020", foreground="#434343", font=("Montsserrat", 15, "bold"))
+        lbName.place(relx= 0.032, rely=0.15, relwidth= 0.45, relheight= 0.2)
+
+        btnSalv = Button(frame1, text="Salvar", background="#111111", bd= 0, fg="white", font=("Montsserrat", 8), command= SalvarNovo)
+        btnSalv.place(relx= 0.09, rely=0.6, relwidth= 0.25, relheight= 0.2)
+        btnDontSlv = Button(frame1, text="Não Salvar", background= "#111111", bd= 0, fg= "white", font=("Montsserrat", 8), command= DontSave)
+        btnDontSlv.place(relx= 0.374, rely=0.6, relwidth= 0.25, relheight= 0.2)
+        BtnCancel = Button(frame1, text="Cancelar", background="#111111", bd= 0, fg= "white", font=("Montsserrat", 8), command= Cancel)
+        BtnCancel.place(relx= 0.66, rely=0.6, relwidth= 0.25, relheight= 0.2)
+
         pop.mainloop()
     
     def ConfirmarNovo(self):
@@ -70,27 +109,27 @@ class MenuArquivo():
         pop = Tk()
         pop.title("Novo Arquivo")
         pop.config(background= "#202020")
-        pop.geometry("300x150")
+        x = (self.screenW / 2) - (300 / 2)
+        y = (self.screenH / 2) - (100 / 2)
+        pop.geometry(f"300x100+{int(x)}+{int(y)}")
         pop.iconbitmap("image/duteblock_icon.ico")
         pop.resizable(False, False)
-        
+
         frame1 = Frame(pop, background= "#202020")
-        frame1.place(relx= 0, rely= 0, relwidth= 1, relheight= 0.65)
-        frame2 = Frame(pop, background= "#404040")
-        frame2.place(relx= 0, rely= 0.7, relwidth= 1, relheight= 0.35)
-        
-        lbText = Label(frame1, text="Criar novo documento sem salvar o atual?", background= "#202020", foreground="White", font=("Segoe UI", 10))
-        lbText.place(relx=0, rely=0.35, relwidth= 0.94, relheight=0.7)
-        lbName = Label(frame1, text="Dute Block", background= "#202020", foreground="White", font=("Segoe UI", 15, "bold"))
-        lbName.place(relx= 0, rely=0.30, relwidth= 0.45, relheight= 0.2)
-        
-        btnSalv = Button(frame2, text="Salvar", background="#f43838", bd= 0, fg="white", command= SalvarNovo)
-        btnSalv.place(relx= 0.05, rely=0.2, relwidth= 0.25, relheight= 0.4)
-        btnDontSlv = Button(frame2, text="Não Salvar", background= "#202020", fg= "white", bd= 0, command= DontSave)
-        btnDontSlv.place(relx= 0.375, rely=0.2, relwidth= 0.25, relheight= 0.4)
-        BtnCancel = Button(frame2, text="Cancelar", background="#202020", bd= 0, fg= "white", command= Cancel)
-        BtnCancel.place(relx= 0.7, rely=0.2, relwidth= 0.25, relheight= 0.4)
-        
+        frame1.place(relx= 0, rely= 0, relwidth= 1, relheight= 1)
+
+        lbText = Label(frame1, text="Abrir novo documento sem salvar o atual? ", background= "#202020", foreground="#434343", font=("Montsserrat", 10))
+        lbText.place(relx=0, rely=0.1, relwidth= 1, relheight=0.7)
+        lbName = Label(frame1, text="Dute Block", background= "#202020", foreground="#434343", font=("Montsserrat", 15, "bold"))
+        lbName.place(relx= 0.032, rely=0.15, relwidth= 0.45, relheight= 0.2)
+
+        btnSalv = Button(frame1, text="Salvar", background="#111111", bd= 0, fg="white", font=("Montsserrat", 8), command= SalvarNovo)
+        btnSalv.place(relx= 0.09, rely=0.6, relwidth= 0.25, relheight= 0.2)
+        btnDontSlv = Button(frame1, text="Não Salvar", background= "#111111", bd= 0, fg= "white", font=("Montsserrat", 8), command= DontSave)
+        btnDontSlv.place(relx= 0.374, rely=0.6, relwidth= 0.25, relheight= 0.2)
+        BtnCancel = Button(frame1, text="Cancelar", background="#111111", bd= 0, fg= "white", font=("Montsserrat", 8), command= Cancel)
+        BtnCancel.place(relx= 0.66, rely=0.6, relwidth= 0.25, relheight= 0.2)
+
         pop.mainloop()
     
     def File(self):
@@ -167,7 +206,7 @@ class MenuArquivo():
         else:
             self.ConfirmarNovo()
 
-class Application(MenuArquivo):
+class Application(MenuArquivo, MenuEditar):
     def __init__(self):
         self.win1 = root
         self.Config()
@@ -178,25 +217,30 @@ class Application(MenuArquivo):
         root.mainloop()
         
     def Config(self):
+        self.screenW = root.winfo_screenwidth()
+        self.screenH = root.winfo_screenheight()
+        x = (self.screenW / 2) - (500 / 2)
+        y = (self.screenH / 2) - (400 / 2)
+        
         self.win1.title("Novo Documento - Dute Block")
         self.win1.configure(background= "#202020")
         self.win1.iconbitmap("image/duteblock_icon.ico")
-        self.win1.geometry("500x400")
-        self.win1.resizable(True, True)
+        self.win1.geometry(f"500x400+{int(x)}+{int(y)}")
+        self.win1.resizable(True, True)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
         
     def Frames1(self):
         self.fr = Frame(self.win1, background= "#202020")
         self.fr.place(relx= 0, rely= 0, relwidth= 1, relheight= 1)
         
     def Widgets1(self):
-        self.txt = Text(self.fr, background= "#202020", fg= "white", font= ("Lucida Console", 12), border=0, wrap= WORD)
+        self.txt = Text(self.fr, background= "#202020", undo= True, fg= "white", font= ("Lucida Console", 12), border=0, wrap= WORD)
         self.txt.place(relx= 0.01, rely= 0.02, relwidth= 0.98, relheight= 0.96)
         
     def Menu1(self):
         self.menu = Menu(self.win1)
         
-        self.fileMenu = Menu(self.menu, tearoff= 0)
-        self.fileMenu.add_command(label= "Novo                            Ctrl-N", command= MenuOptions)
+        self.fileMenu = Menu(self.menu, tearoff= False)
+        self.fileMenu.add_command(label= "Novo                            Ctrl-N", command= self.Novo)
         self.fileMenu.add_command(label= "Abir                              Ctrl-O", command= self.AbrirArquivo)
         self.fileMenu.add_command(label= "Salvar                            Ctrl-S", command= self.Salvar)
         self.fileMenu.add_command(label= "Salvar Como         Ctrl-Alt-S", command= self.SalvarComo)
@@ -204,11 +248,24 @@ class Application(MenuArquivo):
         self.fileMenu.add_command(label= "Sair")
         self.menu.add_cascade(label= "Arquivo", menu= self.fileMenu)
         
+        self.editMenu = Menu(self.menu, tearoff= False)
+        self.editMenu.add_command(label= "Desfazer                  Ctrl-Z", command= self.txt.edit_undo)
+        self.editMenu.add_command(label= "Refazer                    Ctrl-Y", command= self.txt.edit_redo)
+        self.editMenu.add_separator()
+        self.editMenu.add_command(label= "Recortar                  Ctrl-X", command= self.Recortar)
+        self.editMenu.add_command(label= "Copiar                     Ctrl-C", command= self.Copiar)
+        self.editMenu.add_command(label= "Colar                       Ctrl-V", command= self.Colar)
+        self.editMenu.add_separator()
+        self.editMenu.add_command(label= "Preferências           Ctrl-P")
+        self.menu.add_cascade(label= "Editar", menu= self.editMenu)
+        
         self.win1.config(menu= self.menu)
-        #self.win1.bind("<Control-o>", lambda evento: self.AbrirArquivo(None))
-        #self.win1.bind("<Control-n>", lambda evento: self.Novo(None))
-        #self.win1.bind("<Control-s>", lambda evento: self.Salvar(None))
-        #self.win1.bind("<Control-Alt-s>", lambda evento: self.SalvarComo(None))
+        self.win1.bind("<Control-Key-o>", lambda x: self.AbrirArquivo())
+        self.win1.bind("<Control-Key-n>", lambda x: self.Novo())
+        self.win1.bind("<Control-Key-s>", lambda x: self.Salvar())
+        self.win1.bind("<Control-Alt-Key-s>", lambda x: self.SalvarComo())
+        self.win1.bind("<Control-Key-b>", lambda x: self.Bold())
+        self.win1.bind("<Control-Key-l>", lambda x: self.Italic())
         
         
 Application()
