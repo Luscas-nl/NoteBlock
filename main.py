@@ -52,6 +52,16 @@ class MenuEditar():
                 if "bold" in tag:
                     self.txt.tag_remove("bold", "sel.first", "sel.last")
                 self.txt.tag_add("italic", "sel.first", "sel.last")
+                
+    def TrocaTema(self):
+        if self.dark == True:
+            self.txt.configure(fg= "black", background= "white")
+            self.fr.configure(background= "white")
+            self.dark = False
+        else:
+            self.txt.configure(fg= "white", background= "#202020")
+            self.fr.configure(background= "#202020")
+            self.dark = True
 
 class MenuArquivo():
     def ConfirmarAbrir(self):
@@ -209,6 +219,7 @@ class MenuArquivo():
 class Application(MenuArquivo, MenuEditar):
     def __init__(self):
         self.win1 = root
+        self.dark = True
         self.Config()
         self.Frames1()
         self.Widgets1()
@@ -266,6 +277,7 @@ class Application(MenuArquivo, MenuEditar):
         self.win1.bind("<Control-Alt-Key-s>", lambda x: self.SalvarComo())
         self.win1.bind("<Control-Key-b>", lambda x: self.Bold())
         self.win1.bind("<Control-Key-l>", lambda x: self.Italic())
+        self.win1.bind("<Control-Key-t>", lambda x: self.TrocaTema())
         
         
 Application()
