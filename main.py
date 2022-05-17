@@ -3,8 +3,6 @@ from tkinter import filedialog as fd
 from tkinter import font
 import os
 
-root = Tk()
-
 class MenuEditar():
     def Selecao(self):
         self.selecionado = False
@@ -218,18 +216,18 @@ class MenuArquivo():
 
 class Application(MenuArquivo, MenuEditar):
     def __init__(self):
-        self.win1 = root
+        self.win1 = Tk()
         self.dark = True
         self.Config()
         self.Frames1()
         self.Widgets1()
         self.Menu1()
         self.File()
-        root.mainloop()
+        self.win1.mainloop()
         
     def Config(self):
-        self.screenW = root.winfo_screenwidth()
-        self.screenH = root.winfo_screenheight()
+        self.screenW = self.win1.winfo_screenwidth()
+        self.screenH = self.win1.winfo_screenheight()
         x = (self.screenW / 2) - (500 / 2)
         y = (self.screenH / 2) - (400 / 2)
         
@@ -277,7 +275,7 @@ class Application(MenuArquivo, MenuEditar):
         self.win1.bind("<Control-Alt-Key-s>", lambda x: self.SalvarComo())
         self.win1.bind("<Control-Key-b>", lambda x: self.Bold())
         self.win1.bind("<Control-Key-l>", lambda x: self.Italic())
-        self.win1.bind("<Control-Key-t>", lambda x: self.TrocaTema())
+        self.win1.bind("<Control-Alt-Key-t>", lambda x: self.TrocaTema())
         
         
 Application()
