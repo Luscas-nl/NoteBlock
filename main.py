@@ -4,6 +4,24 @@ from tkinter import font
 import os
 
 class MenuEditar():
+    
+    def Theme(self):
+        temaAtual = self.strTH.get().upper()
+        
+        if temaAtual == "LIGHT":
+            self.txt.configure(fg= "black", background= "white")
+            self.fr.configure(background= "white")
+
+        else:
+            self.txt.configure(fg= "white", background= "#202020")
+            self.fr.configure(background= "#202020")
+    
+    def FontStile(self):
+        fontS = font.Font(self.txt, self.txt.cget("font"))
+        fontS.configure(size= int(self.strFS.get()), family= self.strFF.get())
+        self.txt.tag_configure("FontStile", font= fontS)
+        self.txt.tag_add("FontStile", 1.0, END)
+        
     def Selecao(self):
         self.selecionado = False
     def Recortar(self):
@@ -50,16 +68,48 @@ class MenuEditar():
                 if "bold" in tag:
                     self.txt.tag_remove("bold", "sel.first", "sel.last")
                 self.txt.tag_add("italic", "sel.first", "sel.last")
-                
-    def TrocaTema(self):
-        if self.dark == True:
-            self.txt.configure(fg= "black", background= "white")
-            self.fr.configure(background= "white")
-            self.dark = False
-        else:
-            self.txt.configure(fg= "white", background= "#202020")
-            self.fr.configure(background= "#202020")
-            self.dark = True
+    
+    def Opcoes(self): 
+        self.win3 = Tk()
+        self.win3.title("Preferências")
+        self.win3.config(background= "#202020")
+        self.win3.iconbitmap("image/duteblock_icon.ico")
+        
+        x = (self.screenW / 2) - (300 / 2)
+        y = (self.screenH / 2) - (125 / 2)
+        self.win3.geometry(f"300x125+{int(x)}+{int(y)}")
+        
+        self.frame03 = Frame(self.win3, background= "#202020", bd= 0)
+        self.frame03.place(relx=0, rely=0, relheight=1, relwidth=1)
+        
+        self.lb03 = Label(self.frame03, text= "Font Family", background= "#202020", fg= "#434343", font= ("Montsserat", 15))
+        self.lb03.place(relx= 0.05, rely= 0.15, relheight= 0.2, relwidth= 0.35)
+        self.lb04 = Label(self.frame03, text= "Font Size", background= "#202020", fg= "#434343", font= ("Montsserat", 15))
+        self.lb04.place(relx= 0.044, rely= 0.4, relheight= 0.2, relwidth= 0.3)
+        self.lb05 = Label(self.frame03, text= "Theme", background= "#202020", fg= "#434343", font= ("Montsserat", 15))
+        self.lb05.place(relx= 0.06, rely= 0.65, relheight= 0.2, relwidth= 0.2)
+        
+        self.strFS = StringVar(self.frame03)
+        self.strFS.set("12")
+        self.tipFS = ("8", "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "26", "28", "36", "48", "72")
+        self.optFS = OptionMenu(self.frame03, self.strFS, *self.tipFS, command= lambda x: self.FontStile())
+        self.optFS.config(bg="#111111", font= ("Montsserat", 8), fg= "white", bd= 0, highlightthickness= 0.5, highlightbackground= "#434343", )
+        self.optFS.place(relx= 0.35, rely= 0.4, relwidth= 0.59, relheight= 0.2)
+        
+        self.strFF = StringVar(self.frame03)
+        self.strFF.set("Lucida Console")
+        self.tipFF = ("Arial", "Lucida Console", "Montsserat", "Times New Roman")
+        self.optFF = OptionMenu(self.frame03, self.strFF, *self.tipFF, command= lambda x: self.FontStile())
+        self.optFF.config(bg="#111111", font= ("Montsserat", 8), fg= "white", bd= 0, highlightthickness= 0.5, highlightbackground= "#434343", )
+        self.optFF.place(relx= 0.42, rely= 0.15, relwidth= 0.52, relheight= 0.2)
+        
+        self.strTH = StringVar(self.frame03)
+        self.strTH.set("Dark")
+        self.tipTH = ("Dark", "Light")
+        self.optTH = OptionMenu(self.frame03, self.strTH, *self.tipTH, command= lambda x: self.Theme())
+        self.optTH.config(bg="#111111", font= ("Montsserat", 8), fg= "white", bd= 0, highlightthickness= 0.5, highlightbackground= "#434343", )
+        self.optTH.place(relx= 0.28, rely= 0.65, relwidth= 0.66, relheight= 0.2)
+        self.win3.mainloop()
 
 class MenuArquivo():
     def ConfirmarAbrir(self):
@@ -214,6 +264,7 @@ class MenuArquivo():
         else:
             self.ConfirmarNovo()
 
+
 class Application(MenuArquivo, MenuEditar):
     def __init__(self):
         self.win1 = Tk()
@@ -265,7 +316,7 @@ class Application(MenuArquivo, MenuEditar):
         self.editMenu.add_command(label= "Copiar                     Ctrl-C", command= self.Copiar)
         self.editMenu.add_command(label= "Colar                       Ctrl-V", command= self.Colar)
         self.editMenu.add_separator()
-        self.editMenu.add_command(label= "Preferências           Ctrl-P")
+        self.editMenu.add_command(label= "Preferências           Ctrl-P", command= self.Opcoes)
         self.menu.add_cascade(label= "Editar", menu= self.editMenu)
         
         self.win1.config(menu= self.menu)
@@ -275,7 +326,7 @@ class Application(MenuArquivo, MenuEditar):
         self.win1.bind("<Control-Alt-Key-s>", lambda x: self.SalvarComo())
         self.win1.bind("<Control-Key-b>", lambda x: self.Bold())
         self.win1.bind("<Control-Key-l>", lambda x: self.Italic())
-        self.win1.bind("<Control-Alt-Key-t>", lambda x: self.TrocaTema())
+        self.win1.bind("<Control-Key-p>", lambda x: self.Opcoes())
         
         
 Application()
