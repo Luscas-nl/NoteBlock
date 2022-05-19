@@ -1,32 +1,40 @@
-from tkinter import Tk
+from random import randint
 
+palavraSecreta = ['BOMBA', 'PYTHON', 'IFAL', 'ONIBUS', "GALDINO", "YPISSILON"]
+palavraTracinho = []
+chutes = list()
+numIndice = randint(0, 5)
 
-from tkinter import *
+def VerificarLetra(letra):
+    posicao = 0
+    if letra in chutes:
+        print(f"A letra {letra} ja foi chutada")
+    else:
+        chutes.append(letra)
+        if letra in palavraSecreta[numIndice]:
+            for i in palavraSecreta[numIndice]:
+                if letra == i:
+                    palavraTracinho[posicao] = chute
+                posicao += 1
+        else:
+            print(f"Não existe a letra {letra} na palavra")
 
-class Opcoes:
-    def __init__(self):  
-        self.win3 = Tk()
-        self.OpConfig()
-        self.Frame03()
-        self.Widgets03()
-        self.win3.mainloop()
+for i in palavraSecreta[numIndice]:
+    palavraTracinho.append('_')
+
+while True:
+    print(' ')
+    print("Palavra Secreta:", end=" ")
+    for i in palavraTracinho:
+        print(f'{i}', end=' ')
         
-    def OpConfig(self):
-        self.win3.title("Preferências")
-        self.win3.config(background= "#202020")
-        self.win3.iconbitmap("image/duteblock_icon.ico")
-        self.win3.geometry("300x125")
-        
-    def Frame03(self):
-        self.frame03 = Frame(self.win3, background= "#202020", bd= 0)
-        self.frame03.place(relx=0, rely=0, relheight=1, relwidth=1)
-        
-    def Widgets03(self):
-        self.lb03 = Label(self.frame03, text= "Font Family", background= "#202020", fg= "#434343", font= ("Montsserat", 15))
-        self.lb03.place(relx= 0.05, rely= 0.15, relheight= 0.2, relwidth= 0.35)
-        self.lb04 = Label(self.frame03, text= "Font Size", background= "#202020", fg= "#434343", font= ("Montsserat", 15))
-        self.lb04.place(relx= 0.044, rely= 0.4, relheight= 0.2, relwidth= 0.3)
-        self.lb05 = Label(self.frame03, text= "Theme", background= "#202020", fg= "#434343", font= ("Montsserat", 15))
-        self.lb05.place(relx= 0.06, rely= 0.65, relheight= 0.2, relwidth= 0.2)
-        
-Opcoes()
+    chute = str(input("\nDigite uma letra: ").upper())
+    VerificarLetra(chute)
+    
+    if("_" not in palavraTracinho):
+        break
+    
+print(" ")
+print("Você finalizou a palavra")
+print(f"Palavra Secreta: {palavraSecreta[numIndice]}")
+print(f"Quantidade de chutes: {len(chutes)}")

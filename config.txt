@@ -1,0 +1,8 @@
+Lucida Console
+12
+#000c18
+#1f51bf
+Ocean
+#000305
+white
+#2e4578

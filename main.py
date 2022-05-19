@@ -4,23 +4,108 @@ from tkinter import font
 import os
 
 class MenuEditar():
+    def Configurations(self):
+        diretorios = os.listdir()
+        if "config.txt" in diretorios:
+            with open("config.txt", "r", encoding="utf-8") as w:
+                line = w.readlines()
+                self.fontFamily = line[0]
+                self.fontSize = line[1].strip()
+                self.themeBack = line[2].strip()
+                self.themeFore = line[3].strip()
+                self.themeName = line[4].strip()
+                self.optBack = line[5].strip()
+                self.optFont = line[6].strip()
+                self.optHigh = line[7].strip()
+            print(f"Familia Fonte: {self.fontFamily[0:-1]}")
+            print(f"Tamanho Fonte: {self.fontSize}")
+            print(f"Tema: {self.themeName}")
+        else:
+            with open("config.txt", "w", encoding="utf-8") as w:
+                w.write(f"Lucida Console\n{'12'}\n{'#202020'}\n{'white'}\n{'Dark'}\n{'#111111'}\n{'white'}\n{'#434343'}")
+                self.Configurations
+    
     
     def Theme(self):
         temaAtual = self.strTH.get().upper()
         
         if temaAtual == "LIGHT":
-            self.txt.configure(fg= "black", background= "white")
-            self.fr.configure(background= "white")
+            self.txt.configure(fg= "black", background= "#FDF6E4")
+            self.fr.configure(background= "#FDF6E4")
+            self.lb03.configure(background= "#FDF6E4", fg= "black")
+            self.lb04.configure(background= "#FDF6E4", fg= "black")
+            self.lb05.configure(background= "#FDF6E4", fg= "black")
+            self.frame03.configure(background= "#FDF6E4")
+            self.optTH.config(bg="#f2ebda", fg= "black", highlightbackground= "black", activebackground= "#FDF6E4", activeforeground= "black")
+            self.optFF.config(bg="#f2ebda", fg= "black", highlightbackground= "black", activebackground= "#FDF6E4", activeforeground= "black")
+            self.optFS.config(bg="#f2ebda", fg= "black", highlightbackground= "black", activebackground= "#FDF6E4", activeforeground= "black")
+            with open("config.txt", "w", encoding="utf-8") as w:
+                w.write(f"{self.strFF.get()}\n{self.strFS.get()}\n{'#FDF6E4'}\n{'black'}\n{'Light'}\n{'#f2ebda'}\n{'black'}\n{'black'}")
 
+        elif temaAtual == "OCEAN":
+            self.txt.configure(fg= "#1f51bf", background= "#000c18")
+            self.fr.configure(background= "#000c18")
+            self.lb03.configure(fg= "#1f51bf", background= "#000c18")
+            self.lb04.configure(fg= "#1f51bf", background= "#000c18")
+            self.lb05.configure(fg= "#1f51bf", background= "#000c18")
+            self.frame03.configure(background="#000c18")
+            self.optTH.config(bg="#000305", fg= "white", highlightbackground= "#2e4578", activebackground= "#000c18", activeforeground= "white")
+            self.optFF.config(bg="#000305", fg= "white", highlightbackground= "#2e4578", activebackground= "#000c18", activeforeground= "white")
+            self.optFS.config(bg="#000305", fg= "white", highlightbackground= "#2e4578", activebackground= "#000c18", activeforeground= "white")
+            with open("config.txt", "w", encoding="utf-8") as w:
+                w.write(f"{self.strFF.get()}\n{self.strFS.get()}\n{'#000c18'}\n{'#1f51bf'}\n{'Ocean'}\n{'#000305'}\n{'white'}\n{'#2e4578'}")
+            
+        elif temaAtual == "WOOD":
+            self.txt.configure(fg= "#c1b9ab", background= "#221a0f")
+            self.fr.configure(background= "#221a0f")
+            self.lb03.configure(fg= "#c1b9ab", background= "#221a0f")
+            self.lb04.configure(fg= "#c1b9ab", background= "#221a0f")
+            self.lb05.configure(fg= "#c1b9ab", background= "#221a0f")
+            self.frame03.configure(background= "#221a0f")
+            self.optTH.config(bg="#1c150c", fg= "white", highlightbackground= "#4a3921", activebackground= "#221a0f", activeforeground= "white")
+            self.optFF.config(bg="#1c150c", fg= "white", highlightbackground= "#4a3921", activebackground= "#221a0f", activeforeground= "white")
+            self.optFS.config(bg="#1c150c", fg= "white", highlightbackground= "#4a3921", activebackground= "#221a0f", activeforeground= "white")
+            with open("config.txt", "w", encoding="utf-8") as w:
+                w.write(f"{self.strFF.get()}\n{self.strFS.get()}\n{'#221a0f'}\n{'#c1b9ab'}\n{'Wood'}\n{'#1c150c'}\n{'white'}\n{'#4a3921'}")
+            
+        elif temaAtual == "ECLIPSE":
+            self.txt.configure(fg= "#7a0000", background= "#390000")
+            self.fr.configure(background= "#390000")
+            self.lb03.configure(fg= "#7a0000", background= "#390000")
+            self.lb04.configure(fg= "#7a0000", background= "#390000")
+            self.lb05.configure(fg= "#7a0000", background= "#390000")
+            self.frame03.configure(background= "#390000")
+            self.optTH.config(bg="#400000", fg= "white", highlightbackground= "#570000", activebackground= "#390000", activeforeground= "white")
+            self.optFF.config(bg="#400000", fg= "white", highlightbackground= "#570000", activebackground= "#390000", activeforeground= "white")
+            self.optFS.config(bg="#400000", fg= "white", highlightbackground= "#570000", activebackground= "#390000", activeforeground= "white")
+            with open("config.txt", "w", encoding="utf-8") as w:
+                w.write(f"{self.strFF.get()}\n{self.strFS.get()}\n{'#390000'}\n{'#7a0000'}\n{'Eclipse'}\n{'#400000'}\n{'white'}\n{'#570000'}")
+            
         else:
             self.txt.configure(fg= "white", background= "#202020")
             self.fr.configure(background= "#202020")
-    
+            self.lb03.configure(fg= "white", background= "#202020")
+            self.lb04.configure(fg= "white", background= "#202020")
+            self.lb05.configure(fg= "white", background= "#202020")
+            self.frame03.configure(background= "#202020")
+            self.optTH.config(bg="#111111", fg= "white", highlightbackground= "#434343", activebackground= "#202020", activeforeground= "white")
+            self.optFF.config(bg="#111111", fg= "white", highlightbackground= "#434343", activebackground= "#202020", activeforeground= "white")
+            self.optFS.config(bg="#111111", fg= "white", highlightbackground= "#434343", activebackground= "#202020", activeforeground= "white")
+            with open("config.txt", "w", encoding="utf-8") as w:
+                w.write(f"{self.strFF.get()}\n{self.strFS.get()}\n{'#202020'}\n{'white'}\n{'Dark'}\n{'#111111'}\n{'white'}\n{'#434343'}")
+
+        self.Configurations()
+        
+
     def FontStile(self):
         fontS = font.Font(self.txt, self.txt.cget("font"))
         fontS.configure(size= int(self.strFS.get()), family= self.strFF.get())
+        self.txt.configure(font= (self.strFF.get(), int(self.strFS.get())))
         self.txt.tag_configure("FontStile", font= fontS)
         self.txt.tag_add("FontStile", 1.0, END)
+        with open("config.txt", "w", encoding="utf-8") as w:
+            w.write(f"{self.strFF.get()}\n{self.strFS.get()}\n{self.themeBack}\n{self.themeFore}\n{self.themeName}\n{self.optBack}\n{self.optFont}\n{self.optHigh}")
+        self.Configurations()
         
     def Selecao(self):
         self.selecionado = False
@@ -79,36 +164,39 @@ class MenuEditar():
         y = (self.screenH / 2) - (125 / 2)
         self.win3.geometry(f"300x125+{int(x)}+{int(y)}")
         
-        self.frame03 = Frame(self.win3, background= "#202020", bd= 0)
+        self.frame03 = Frame(self.win3, background= self.themeBack, bd= 0)
         self.frame03.place(relx=0, rely=0, relheight=1, relwidth=1)
         
-        self.lb03 = Label(self.frame03, text= "Font Family", background= "#202020", fg= "#434343", font= ("Montsserat", 15))
-        self.lb03.place(relx= 0.05, rely= 0.15, relheight= 0.2, relwidth= 0.35)
-        self.lb04 = Label(self.frame03, text= "Font Size", background= "#202020", fg= "#434343", font= ("Montsserat", 15))
-        self.lb04.place(relx= 0.044, rely= 0.4, relheight= 0.2, relwidth= 0.3)
-        self.lb05 = Label(self.frame03, text= "Theme", background= "#202020", fg= "#434343", font= ("Montsserat", 15))
+        self.lb03 = Label(self.frame03, text= "Font Family", background= self.themeBack, fg= self.themeFore, font= ("Arial Narrow", 12))
+        self.lb03.place(relx= 0.035, rely= 0.15, relheight= 0.2, relwidth= 0.35)
+        self.lb04 = Label(self.frame03, text= "Font Size", background= self.themeBack, fg= self.themeFore, font= ("Arial Narrow", 12))
+        self.lb04.place(relx= 0.035, rely= 0.4, relheight= 0.2, relwidth= 0.3)
+        self.lb05 = Label(self.frame03, text= "Theme", background= self.themeBack, fg= self.themeFore, font= ("Arial Narrow", 12))
         self.lb05.place(relx= 0.06, rely= 0.65, relheight= 0.2, relwidth= 0.2)
         
         self.strFS = StringVar(self.frame03)
-        self.strFS.set("12")
+        self.strFS.set(self.fontSize)
         self.tipFS = ("8", "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "26", "28", "36", "48", "72")
         self.optFS = OptionMenu(self.frame03, self.strFS, *self.tipFS, command= lambda x: self.FontStile())
-        self.optFS.config(bg="#111111", font= ("Montsserat", 8), fg= "white", bd= 0, highlightthickness= 0.5, highlightbackground= "#434343", )
-        self.optFS.place(relx= 0.35, rely= 0.4, relwidth= 0.59, relheight= 0.2)
+        self.optFS.config(bg=self.optBack, font= ("Lucida Console", 8), fg= self.optFont, bd= 0, highlightthickness= 0.5,
+                        highlightbackground= self.optHigh, activebackground= self.themeBack, activeforeground= self.optFont)
+        self.optFS.place(relx= 0.32, rely= 0.4, relwidth= 0.59, relheight= 0.2)
         
         self.strFF = StringVar(self.frame03)
-        self.strFF.set("Lucida Console")
-        self.tipFF = ("Arial", "Lucida Console", "Montsserat", "Times New Roman")
+        self.strFF.set(self.fontFamily[0:-1])
+        self.tipFF = ("Arial", "Arial Black", "Arial Narrow", "Lucida Console", "Times New Roman")
         self.optFF = OptionMenu(self.frame03, self.strFF, *self.tipFF, command= lambda x: self.FontStile())
-        self.optFF.config(bg="#111111", font= ("Montsserat", 8), fg= "white", bd= 0, highlightthickness= 0.5, highlightbackground= "#434343", )
-        self.optFF.place(relx= 0.42, rely= 0.15, relwidth= 0.52, relheight= 0.2)
+        self.optFF.config(bg=self.optBack, font= ("Arial Condensed", 8), fg= self.optFont, bd= 0, highlightthickness= 0.5,
+                        highlightbackground= self.optHigh, activebackground= self.themeBack, activeforeground= self.optFont)
+        self.optFF.place(relx= 0.37, rely= 0.15, relwidth= 0.54, relheight= 0.2)
         
         self.strTH = StringVar(self.frame03)
-        self.strTH.set("Dark")
-        self.tipTH = ("Dark", "Light")
+        self.strTH.set(self.themeName)
+        self.tipTH = ("Dark", "Light", "Ocean", "Wood", "Eclipse")
         self.optTH = OptionMenu(self.frame03, self.strTH, *self.tipTH, command= lambda x: self.Theme())
-        self.optTH.config(bg="#111111", font= ("Montsserat", 8), fg= "white", bd= 0, highlightthickness= 0.5, highlightbackground= "#434343", )
-        self.optTH.place(relx= 0.28, rely= 0.65, relwidth= 0.66, relheight= 0.2)
+        self.optTH.config(bg=self.optBack, font= ("Arial Condensed", 8), fg= self.optFont, bd= 0, highlightthickness= 0.5,
+                        highlightbackground= self.optHigh, activebackground= self.themeBack, activeforeground= self.optFont)
+        self.optTH.place(relx= 0.26, rely= 0.65, relwidth= 0.65, relheight= 0.2)
         self.win3.mainloop()
 
 class MenuArquivo():
@@ -133,19 +221,19 @@ class MenuArquivo():
         pop.iconbitmap("image/duteblock_icon.ico")
         pop.resizable(False, False)
 
-        frame1 = Frame(pop, background= "#202020")
+        frame1 = Frame(pop, background= self.themeBack)
         frame1.place(relx= 0, rely= 0, relwidth= 1, relheight= 1)
 
-        lbText = Label(frame1, text="Criar novo documento sem salvar o atual? ", background= "#202020", foreground="#434343", font=("Montsserrat", 10))
+        lbText = Label(frame1, text="Criar novo documento sem salvar o atual? ", background= self.themeBack, foreground=self.optHigh, font=("Montsserrat", 10))
         lbText.place(relx=0, rely=0.1, relwidth= 1, relheight=0.7)
-        lbName = Label(frame1, text="Dute Block", background= "#202020", foreground="#434343", font=("Montsserrat", 15, "bold"))
+        lbName = Label(frame1, text="Dute Block", background= self.themeBack, foreground=self.optHigh, font=("Montsserrat", 15, "bold"))
         lbName.place(relx= 0.032, rely=0.15, relwidth= 0.45, relheight= 0.2)
 
-        btnSalv = Button(frame1, text="Salvar", background="#111111", bd= 0, fg="white", font=("Montsserrat", 8), command= SalvarNovo)
+        btnSalv = Button(frame1, text="Salvar", background=self.optBack, bd= 0, fg=self.optHigh, font=("Montsserrat", 8), command= SalvarNovo)
         btnSalv.place(relx= 0.09, rely=0.6, relwidth= 0.25, relheight= 0.2)
-        btnDontSlv = Button(frame1, text="Não Salvar", background= "#111111", bd= 0, fg= "white", font=("Montsserrat", 8), command= DontSave)
+        btnDontSlv = Button(frame1, text="Não Salvar", background= self.optBack, bd= 0, fg= self.optHigh, font=("Montsserrat", 8), command= DontSave)
         btnDontSlv.place(relx= 0.374, rely=0.6, relwidth= 0.25, relheight= 0.2)
-        BtnCancel = Button(frame1, text="Cancelar", background="#111111", bd= 0, fg= "white", font=("Montsserrat", 8), command= Cancel)
+        BtnCancel = Button(frame1, text="Cancelar", background=self.optBack, bd= 0, fg= self.optHigh, font=("Montsserrat", 8), command= Cancel)
         BtnCancel.place(relx= 0.66, rely=0.6, relwidth= 0.25, relheight= 0.2)
 
         pop.mainloop()
@@ -173,19 +261,19 @@ class MenuArquivo():
         pop.iconbitmap("image/duteblock_icon.ico")
         pop.resizable(False, False)
 
-        frame1 = Frame(pop, background= "#202020")
+        frame1 = Frame(pop, background= self.themeBack)
         frame1.place(relx= 0, rely= 0, relwidth= 1, relheight= 1)
 
-        lbText = Label(frame1, text="Abrir novo documento sem salvar o atual? ", background= "#202020", foreground="#434343", font=("Montsserrat", 10))
+        lbText = Label(frame1, text="Abrir novo documento sem salvar o atual? ", background= self.themeBack, foreground=self.optHigh, font=("Montsserrat", 10))
         lbText.place(relx=0, rely=0.1, relwidth= 1, relheight=0.7)
-        lbName = Label(frame1, text="Dute Block", background= "#202020", foreground="#434343", font=("Montsserrat", 15, "bold"))
+        lbName = Label(frame1, text="Dute Block", background= self.themeBack, foreground=self.optHigh, font=("Montsserrat", 15, "bold"))
         lbName.place(relx= 0.032, rely=0.15, relwidth= 0.45, relheight= 0.2)
 
-        btnSalv = Button(frame1, text="Salvar", background="#111111", bd= 0, fg="white", font=("Montsserrat", 8), command= SalvarNovo)
+        btnSalv = Button(frame1, text="Salvar", background=self.optBack, bd= 0, fg=self.optHigh, font=("Montsserrat", 8), command= SalvarNovo)
         btnSalv.place(relx= 0.09, rely=0.6, relwidth= 0.25, relheight= 0.2)
-        btnDontSlv = Button(frame1, text="Não Salvar", background= "#111111", bd= 0, fg= "white", font=("Montsserrat", 8), command= DontSave)
+        btnDontSlv = Button(frame1, text="Não Salvar", background= self.optBack, bd= 0, fg= self.optHigh, font=("Montsserrat", 8), command= DontSave)
         btnDontSlv.place(relx= 0.374, rely=0.6, relwidth= 0.25, relheight= 0.2)
-        BtnCancel = Button(frame1, text="Cancelar", background="#111111", bd= 0, fg= "white", font=("Montsserrat", 8), command= Cancel)
+        BtnCancel = Button(frame1, text="Cancelar", background=self.optBack, bd= 0, fg= self.optHigh, font=("Montsserrat", 8), command= Cancel)
         BtnCancel.place(relx= 0.66, rely=0.6, relwidth= 0.25, relheight= 0.2)
 
         pop.mainloop()
@@ -268,7 +356,9 @@ class MenuArquivo():
 class Application(MenuArquivo, MenuEditar):
     def __init__(self):
         self.win1 = Tk()
+        self.win3 = None
         self.dark = True
+        self.Configurations()
         self.Config()
         self.Frames1()
         self.Widgets1()
@@ -289,11 +379,11 @@ class Application(MenuArquivo, MenuEditar):
         self.win1.resizable(True, True)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
         
     def Frames1(self):
-        self.fr = Frame(self.win1, background= "#202020")
+        self.fr = Frame(self.win1, background= self.themeBack)
         self.fr.place(relx= 0, rely= 0, relwidth= 1, relheight= 1)
         
     def Widgets1(self):
-        self.txt = Text(self.fr, background= "#202020", undo= True, fg= "white", font= ("Lucida Console", 12), border=0, wrap= WORD)
+        self.txt = Text(self.fr, background= self.themeBack, undo= True, fg= self.themeFore, font= (self.fontFamily[0:-1], int(self.fontSize)), border=0, wrap= WORD)
         self.txt.place(relx= 0.01, rely= 0.02, relwidth= 0.98, relheight= 0.96)
         
     def Menu1(self):
