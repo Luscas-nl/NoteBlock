@@ -2,7 +2,11 @@ Lucida Console
 12
 #000c18
 #1f51bf
+<<<<<<< HEAD
 Ocean
 #000305
 white
 #2e4578
+=======
+Ocean
+>>>>>>> 6454ab1290234e5e03d7676380f0341737885328
